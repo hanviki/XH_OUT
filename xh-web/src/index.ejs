@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>协和医院优秀专业学术人才出国奖励申请认定在线管理系统</title>
+
+  <style>
+    #J_no-support{
+      font-size: 18px;
+      font-weight: bold;
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      padding-top: 100px;
+      padding-left: 50px;
+      padding-right: 50px;
+      box-sizing: border-box;
+      text-align: center;
+      z-index: 999;
+    }
+    #J_no-support.block{
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" style="height: 100%;"></div>
+  <div id="J_no-support" onclick="downloadChrome()">当前浏览器不支持打开本系统，点击此处下载最新chrome浏览器，安装后再打开。</div>
+
+
+  <script>
+    function IEVersion() {
+      var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+      var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE浏览器
+      if (isIE) {
+        document.getElementById('J_no-support').className += 'block';
+      }
+    }
+    function downloadChrome(){
+      window.location = 'https://sm.myapp.com/original/Browser/70.0.3538.67_chrome_installer.exe';
+    }
+    IEVersion();
+  </script>
+</body>
+</html>

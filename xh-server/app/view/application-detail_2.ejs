@@ -1,0 +1,628 @@
+<%
+  const _ = data._;
+  const DECIDERS_MAP = data.DECIDERS_MAP;
+  const DECIDERS_ORDER = data.DECIDERS_ORDER;
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>高水平科学研究</title>
+  <link type="text/css" rel="stylesheet" href="../public/resources/styles/common.css">
+  <link type="text/css" rel="stylesheet" href="../public/resources/styles/index.css">
+  <link type="text/css" rel="stylesheet" href="../public/resources/styles/explanation.css">
+  <link type="text/css" rel="stylesheet" href="../public/resources/styles/catalog.css">
+</head>
+<body>
+  <div class="wgt-container index-pages">
+    <div class="f-foursize">
+      <span class="number">编号_______</span>
+    </div>
+    <div class="f-firstsize f-black f-tac title">
+    优秀专业学术人才出国奖励计划
+      <p>高水平科学研究申请表</p>
+    </div>
+    <div class="info-cell">
+      <div class="f-threesize f-black info-item">
+        <p class="label">科室名称:</p>
+        <div class="input-value"><%= data.deptName %></div>
+      </div>
+      <div class="f-threesize f-black info-item">
+        <p class="label">申请人姓名:</p>
+        <div class="input-value"><%= data.applicantName %></div>
+      </div>
+      <div class="f-threesize f-black info-item">
+        <p class="label">专业技术职务:</p>
+        <div class="input-value"><%= data.zyzw %></div>
+      </div>
+
+      <div class="f-threesize f-black info-item">
+        <p class="label">填表时间:</p>
+        <%
+          if ( data.applyTime) {
+            var formatData = new Date(data.applyTime);
+        %>
+          <div class="input-value"><%= formatData.getFullYear()%><span class="split">年</span><%= formatData.getMonth()+1%><span class="split">月</span><%= formatData.getDate()%><span class="split">日</span></div>
+        <%}%>
+      </div>
+    </div>
+    <p class="f-foursize f-tac f-black footer-tips">协和医院制表</p>
+    <p class="f-page-number">1</p>
+  </div>
+
+  <!-- 第二页 -->
+  <div class="wgt-container explanation-pages">
+    <div class="f-s-secondsize f-black f-tac title">填  写  说  明</div>
+
+    <div class="f-foursize content-cell">
+      <div class="content-item">
+        <span class="label">一、</span>
+        <p class="content">本表适用于申请临床新技术新业务学习人员使用；</p>
+      </div>
+      <div class="content-item">
+        <span class="label">二、</span>
+        <p class="content">填写本表前，请认真阅读表内的各项要求，并如实填写各项内容；</p>
+      </div>
+      <div class="content-item">
+        <span class="label">三、</span>
+        <p class="content">本表第一至三项由候选人本人填写，科室负责审核；</p>
+      </div>
+      <div class="content-item">
+        <span class="label">四、</span>
+        <p class="content">本表第四各项由科室负责填写；</p>
+      </div>
+	    <div class="content-item">
+        <span class="label">五、</span>
+        <p class="content">本表内有关栏目填写不下的，可另附页；</p>
+      </div>
+	   <div class="content-item">
+        <span class="label">六、</span>
+        <p class="content">本表请用小四号宋体字填写，A4纸单面打印，一式两份；</p>
+      </div>
+	   <div class="content-item">
+        <span class="label">七、</span>
+        <p class="content">附件材料与申报表一起成册装订。</p>
+      </div>
+    </div>
+    <p class="f-page-number">2</p>
+  </div>
+
+  <!-- 第三页 -->
+  <div class="wgt-container explanation-common-pages explanation-1-pages">
+    <table>
+	<tr><td colspan='8' style='font-weight: 700;'>一、基本情况</td></tr>
+	<tr><td style="width:10%;">姓名</td><td style="width:15%;"><%= data.applicantName %></td><td style="width:10%;">性别</td><td style="width:10%;"><%= data.applicantGender?'男':'女' %></td><td style="width:10%;">联系电话</td><td style="width:20%;"><%= data.applicantMobile %></td><td style="width:10%;">出生日期</td><td style="width:15%;"><%= data.applicantBirthday %></td></tr>
+	<tr><td>最后学历</td><td colspan='5'><%= data.bysj %> 毕业于 <%= data.school %></td><td>学位</td><td><%= data.education %></td></tr>
+	<tr><td>现任职科室</td><td colspan='2'><%= data.deptName %></td><td colspan='2'>是否单独带组</td><td>data.dddz==0?'否':'是'</td><td>开始带组时间</td><td><%= data.dzsj.substring(0,10) %></td></tr>
+	<tr><td>现任专业技术职务</td><td colspan='2'><%= data.zyzw %></td><td colspan='2'>现任行政职务</td><td colspan="3"><%= data.school %></td></tr>
+	<tr><td>从事专业关键词</td><td colspan="7"><%= data.zygjc %></td></tr>
+	<tr><td>申请留学时间</td><td colspan="7"><%= data.lxkssj && data.lxkssj.substr(0, 10) || '' %> 至 <%= data.lxjssj && data.lxjssj.substr(0, 10) || ''%></td></tr>
+	<tr><td style="height:245px;">个人简历</td><td colspan="7"><%= data.grjj %></td></tr>
+	<tr><td style="height:197px;">主要成就简介（限200字以内)</td><td colspan="7"><%= data.zycj %></td></tr>
+	</table>
+    <p class="f-page-number">3</p>
+  </div>
+
+     <!-- 第4页 -->
+  <div class="wgt-container explanation-common-pages explanation-3-pages">
+    <table>
+	<tr><td colspan='6' style='font-weight: 700;'>二、留学单位及导师</td></tr>
+	<tr><td colspan='6'>学校及专业</td></tr>
+	<tr><td colspan='2'>留学国别与学校务名称</td><td>学校世界排名</td><td>留学专业</td><td colspan="2">专业世界排名</td></tr>
+	<tr><td colspan='2'><%= data.lxgj %> <%= data.lxxx %></td><td><%= data.xxpm %></td><td><%= data.lxzy %></td><td colspan="2"><%= data.zypm %></td></tr>
+	<tr><td colspan='6'>导师概况</td></tr>
+	<tr><td style="width:8%">导师姓名</td><td style="width:25%"><%= data.dsxm %></td><td style="width:15%">学术影响及学术任职</td><td style="width:15%"><%= data.xsrz %></td><td style="width:10%">行政职务</td><td style="width:20%"><%= data.dsxzzw %></td></tr>
+		<tr><td colspan='6'>是否有该导师正式邀请信：<%= data.dsyq?'是':'否' %></td></tr>
+	<tr><td style="height:245px;">导</br>师</br>简</br>介</td><td colspan="5"><%= data.dsjj %></td></tr>
+	<tr><td style="height:245px;">导师</br>提供</br>留学</br>条件</br>介绍</td><td colspan="5"><%= data.tjjs %></td></tr>
+	</table>
+    <p class="f-page-number">4</p>
+  </div>
+
+
+     <!-- 第5页 -->
+  <div class="wgt-container explanation-common-pages explanation-3-pages">
+    <table>
+	<tr><td colspan='2' style='font-weight: 700;'>三、科学研究项目介绍</td></tr>
+	<tr><td style="width:20%;">留学方向</td><td><%=data.lxfx%></td></tr>
+	<tr><td colspan='2' style="text-align:center;">高水平科学研究学习内容详情及先进性介绍（限500字）</td></tr>
+	<tr><td colspan='2' style="height:400px;"><%=data.xxlr%></td></tr>
+	<tr><td colspan='2' style="text-align:center;">预期成果及量化考核指标</td></tr>
+	<tr><td colspan='2' style="height:400px;"><%=data.khzb%></td></tr>
+	</table>
+    <p class="f-page-number">4</p>
+  </div>
+
+
+  <!-- 第6页 -->
+  <div class="wgt-container explanation-common-pages explanation-5-pages">
+    <div class="cell">
+      <div class="f-foursize">
+        <div class="explanation-fill-cell">
+          <div class="item">
+            <div class="title value">四、科室意见</div>
+          </div>
+        </div>
+      </div>
+	        <div class="f-foursize explanation-fill-cell">
+        <div class="item">
+          <div class="value">1.申请人拟开展高水平科学研究的先进性；2.所学内容对学科发展的意义；3.科室对于留学人员提供何种配套政策；4.科室对于申请人的考核方式及指标。</div>
+        </div>
+      </div>
+        <div class="f-foursize sign-item">
+          <p class="pass-txt" style="min-height: 800px;">
+            <span class="f-foursize">1. <%= data.reviews[0] && data.reviews[0].reviewState != 0 && data.reviews[0].ywcyj1 || '' %><br></span>
+              <span class="f-foursize">2. <%= data.reviews[0] && data.reviews[0].reviewState != 0 && data.reviews[0].ywcyj2 || ''  %><br></span>
+              <span class="f-foursize">3. <%= data.reviews[0] && data.reviews[0].reviewState != 0 && data.reviews[0].ywcyj3 || ''  %><br></span>
+              <span class="f-foursize">4. <%= data.reviews[0] && data.reviews[0].reviewState != 0 && data.reviews[0].ywcyj4 || ''  %><br></span>
+            <span class="f-s-foursize"></span>
+          </p>
+
+            <div class="pass-remark">
+              <p>负责人(签字)：<%= data.reviews[0] && data.reviews[0].reviewState != 0 && data.reviews[0].reviewerName || '' %></p>
+              <p>日期：<%= data.reviews[0] && data.reviews[0].reviewState != 0 && data.reviews[0].reviewTime || '' %></p>
+            </div>
+
+        </div>
+    </div>
+    <p class="f-page-number">6</p>
+  </div>
+
+   <!-- 第七页 -->
+  <div class="wgt-container explanation-common-pages explanation-6-pages">
+    <div class="no-border-cell">
+        <div class="f-foursize explanation-fill-cell">
+          <div class="item">
+            <div class="title value">五、医务管理办公室审核意见</div>
+          </div>
+        </div>
+        <div class="f-foursize sign-item" style="padding: 0 10px">
+          <p class="pass-txt">
+          1.所学内容是否具有先进性和可行性：是<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].sfxj?'■':'□' %>    否<%= data.reviews[1] && !data.reviews[1].sfxj?'■':'□' %>  </br>
+          2.是否推荐出国学习：     推荐<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].sftj?'■':'□' %>       不推荐<%= data.reviews[1] && !data.reviews[1].sftj?'■':'□' %>    </br>
+          3.其他审核意见：<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].reviewAdvice || '' %>
+          </p>
+          <div class="pass-remark" style="margin-top: 40px">
+            <p>负责人签字：<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].reviewerName || ''%></p>
+              <p>日期：<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].reviewTime   || '' %></p>
+          </div>
+        </div>
+     
+
+    </div>
+    <p class="f-page-number">7</p>
+  </div>
+  <!-- 第8页 -->
+  <div class="wgt-container explanation-common-pages explanation-5-pages">
+      <div class="cell">
+          <div class="f-foursize">
+              <div class="explanation-fill-cell">
+                  <div class="item">
+                      <div class="title value">六、思想政治素质、师德师风及意识形态考核情况（请写明详细考核意见）</div>
+                  </div>
+              </div>
+          </div>
+          <%
+          const reviewsMap = _.keyBy(data.reviews, 'reviewerId');
+          for(var i = 0; i < DECIDERS_ORDER.length; i++) {
+              var itemData = reviewsMap[DECIDERS_MAP[DECIDERS_ORDER[i]]];
+              var bottomBor = i == DECIDERS_ORDER.length-1 ? 'style=border-bottom:none' : ''
+          if (i < DECIDERS_ORDER.length) {
+          %>
+              <div class="f-foursize sign-item" <%= bottomBor%>>
+                  <p class="pass-txt" style="padding:0px;min-height:40px;">
+                      <span class="f-foursize"><%= DECIDERS_ORDER[i] %>：</span>
+                      <span class="f-s-foursize"><%= itemData && itemData.reviewState != 0 && itemData.reviewAdvice || ''%></span>
+                  </p>
+                  <%
+                  if (itemData && itemData.reviewState != 0) {
+                  %>
+                      <div class="pass-remark" style="margin-top: 0px">
+                          <p>负责人签字：
+                              <%=
+                                  itemData.reviewerName || '';
+                              %></p>
+                          <p>日期：
+                              <span><%= itemData.reviewTime%></span>
+                          </p>
+                      </div>
+                  <%} else {%>
+                      <div class="pass-remark" style="margin-top: 0px">
+                          <p>负责人签字：</p>
+                          <p>日期：</p>
+                      </div>
+                  <%}%>
+              </div>
+          <%}}%>
+      </div>
+      <p class="f-page-number">8</p>
+  </div>
+  
+  <!-- 第七页 -->
+  <div class="wgt-container explanation-common-pages explanation-6-pages">
+    <div class="no-border-cell">
+       
+      <div class="f-foursize explanation-fill-cell">
+        <div class="item">
+          <div class="title value">七、人才工作领导小组办公室审核意见</div>
+        </div>
+      </div>
+      <div class="f-foursize sign-item">
+        <p class="pass-txt"><%= data.groupAdvice%></p>
+          <div class="pass-remark" style="margin-top: 40px">
+              <p>办公室主任：<%= data.groupName%></p>
+              <%
+              if (data.updatedAt && data.groupName) {
+                  var formatData = new Date(data.updatedAt);
+              %>
+              <p>日期：<%= formatData.getFullYear()%><span class="split">年</span><%= formatData.getMonth()+1%><span class="split">月</span><%= formatData.getDate()%><span class="split">日</span></p>
+              <%} else { %>
+                  <p>日期：</p>
+              <%}%>
+          </div>
+      </div>
+      <div class="f-foursize explanation-fill-cell">
+        <div class="item">
+          <div class="title value">八、医院审批意见</div>
+        </div>
+      </div>
+      <div class="f-foursize sign-item">
+        <p class="pass-txt" style="margin-top: 30px;text-indent: 2em">批准留学时间：自    年   月   日至    年   月   日，共   月
+资助金额：     万元</p>
+        <div class="pass-remark">
+          <p>院长签字：</p>
+          <p>时间：</p>
+        </div>
+      </div>
+
+    </div>
+    <p class="f-page-number">9</p>
+  </div>
+    <!-- 第8页 -->
+  <div class="wgt-container explanation-common-pages explanation-6-pages">
+  <div class="no-border-cell2">
+    附表:
+  </div>
+    <div class="no-border-cell">
+        <div class="f-foursize explanation-fill-cell">
+          <div class="item">
+            <div class="title value">八、申请人评分方案</div>
+          </div>
+        </div>
+        <div class="f-foursize sign-item" style="padding: 0 10px">
+          <p class="pass-txt" style="min-height: 1000px;padding:5px;line-height:25px;">
+                                 <span style="font-weight:700;">申请相关专业及导师评分标准</span></br>
+（一）学校（20分）：</br>
+1.学校综合排名（10分）</br>
+前10名（10分）<%= data.xxzhpm=='前10名'?'★':''%>，前20名（5分）<%= data.xxzhpm=='前20名'?'★':''%>，前50名（3分）<%= data.xxzhpm=='前50名'?'★':''%>，前100名（2分）<%= data.xxzhpm=='前100名'?'★':''%></br>
+2.学校NIH基金申请总额排名（10分）</br>
+前5名（10分）<%= data.xxjjpm=='前5名'?'★':''%>，前10名（5分）<%= data.xxjjpm=='前10名'?'★':''%>，前30名（3分）<%= data.xxjjpm=='前30名'?'★':''%>，前50名（2分）<%= data.xxjjpm=='前50名'?'★':''%></br>
+（二）医院（20分）： </br>
+1.大学或研究所附属医院（5分）<%= data.yyxz?'★':''%></br>
+2.医院综合排名（10分）</br>
+前10名（10分）<%= data.yypm=='前10名'?'★':''%>，前20名（8分）<%= data.yypm=='前20名'?'★':''%>，前50名（5分）<%= data.yypm=='前50名'?'★':''%>，前100名（2分）<%= data.yypm=='前100名'?'★':''%></br>
+3.医院年度NIH基金申请总额排名（5分）</br>
+前10名（5分）<%= data.yyjjpm=='前10名'?'★':''%>，前20名（3分）<%= data.yyjjpm=='前20名'?'★':''%>，前50名（2分）<%= data.yyjjpm=='前50名'?'★':''%>，前100名（1分）<%= data.yyjjpm=='前100名'?'★':''%></br>
+（三）专业（30分）：</br>
+1.与申请人所从事专业的相关性（10）；</br>
+完全相关（10分）<%= data.zyxgx=='完全相关'?'★':''%>；直接相关（8分）<%= data.zyxgx=='直接相关'?'★':''%>；部分相关（5分）<%= data.zyxgx=='部分相关'?'★':''%>；有点相关（0分）<%= data.zyxgx=='有点相关'?'★':''%></br>
+（相关性是指与从事四级专业的距离，完全相关指四级专业一致，直接相关指三级专业一致，以此类推）</br>
+2.专业排名（20）</br>
+前5名（20分）<%= data.zyzhpm=='前5名'?'★':''%>，前10名（10分）<%= data.zyzhpm=='前10名'?'★':''%>，前30名（8分）<%= data.zyzhpm=='前30名'?'★':''%>，前50名（5分）<%= data.zyzhpm=='前50名'?'★':''%></br>
+（四）导师身份及学术地位（30分）：</br>
+1.导师为海外杰青（6分）<%= data.dsjq?'★':''%></br>
+2.千人计划B类（6分）<%= data.dsqr?'★':''%></br>
+3.中国科学院或工程院外籍院士（6分）<%= data.dswjys?'★':''%></br>
+4.导师为该国科学院院士（6分）<%= data.dsys?'★':''%></br>
+5.导师为本专业该国一级学会或世界一级学会主席（6分）<%= data.dszx?'★':''%></br>
+
+以上材料请提供相应佐证材料（含网络材料）</br>
+（五）申请人资历及年龄</br>
+1.副高级以上专业技术职务（5分）<%= data.zyfg?'★':''%></br>
+2.中级专业技术职务（3分）<%= data.zyzj?'★':''%></br>
+3.中级专业技术职务（1分）<%= data.zycj?'★':''%></br>
+4.申请人在我院连续工作满8年及以上（5分）<%= data.zy8n?'★':''%></br>
+5.申请人在我院连续工作满5年以上8年以下（3分）<%= data.zy5n?'★':''%></br>
+（六）申请人所在学科</br>
+1.国家重点学科（5分）<%= data.xkzd?'★':''%></br>
+2.国家临床重点专科（5分）<%= data.xklczd?'★':''%></br>
+3.省级重点专科（1分）<%= data.xksjzd?'★':''%></br>
+</br>
+</br>
+</br>
+综合得分：_____<%= data.total_score %>______分；</br>
+
+          </p>
+
+        </div>
+
+
+    </div>
+    <p class="f-page-number">10</p>
+  </div>
+    <!-- 第9页 -->
+  <div class="wgt-container explanation-common-pages explanation-6-pages">
+    <div class="no-border-cell">
+        <div class="f-foursize explanation-fill-cell">
+          <div class="item">
+            <div class="title value">申请人学术评分及评分标准</div>
+          </div>
+        </div>
+        <div class="f-foursize sign-item" style="padding: 0 10px">
+          <p class="pass-txt" style="min-height: 1000px;padding:5px;line-height:25px;">
+                                 <span style="font-weight:700;">学术评分标准</span></br>
+（一）课题：</br>
+1.国家级课题</br>
+（1）类：</br>
+“973”课题一级子项目（50分）<%= data.items.some((it)=>{ return it.source == '“973”课题一级子项目'})?'★':''%></br>
+“863”课题（50分）<%= data.items.some((it)=>{ return it.source == '“863”课题'})?'★':''%></br>
+国家自然科学基金重点项目（50分）<%= data.items.some((it)=>{ return it.source == '国家自然科学基金重点项目'})?'★':''%></br>
+国家杰出青年基金（50分）<%= data.items.some((it)=>{ return it.source == '国家杰出青年基金'})?'★':''%></br>
+（2）类：</br>
+国家自然科学基金面上（20分）<%= data.items.some((it)=>{ return it.source == '国家自然科学基金面上'})?'★':''%></br>
+国家自然科学基金主任（8分）<%= data.items.some((it)=>{ return it.source == '国家自然科学基金主任'})?'★':''%></br>
+教育部新世纪优秀人才支持计划（20分）<%= data.items.some((it)=>{ return it.source == '教育部新世纪优秀人才支持计划'})?'★':''%></br>
+2.省部级课题</br>
+卫生部行业基金（20分） <%= data.items.some((it)=>{ return it.source == '卫生部行业基金'})?'★':''%></br>
+湖北省重大科研项目（20分）<%= data.items.some((it)=>{ return it.source == '湖北省重大科研项目'})?'★':''%></br>
+湖北省杰出青年基金（10分）<%= data.items.some((it)=>{ return it.source == '“863”课题'})?'★':''%></br>
+横向合作课题：总经费100万元及以上10分<%= data.items.some((it)=>{ return it.source == '横向合作课题,总经费100万元及以上'})?'★':''%>, 总经费50万元至100万元 5分<%= data.items.some((it)=>{ return it.source == '横向合作课题,总经费50万元至100万元'})?'★':''%></br>
+注：上述课题以第一负责人计算。</br>
+（二）论文 </br>
+只计算以第一作者或通讯作者身份在SCI收录杂志上发表的文章（不含摘要）。</br>
+1.计分方法：</br>
+（1）以通讯作者或第一作者（国内）发表的文章，按发表杂志当年的影响因子*3计分。</br>
+（2）在国外发表的第一作者论文，按照当年分值计算。</br>
+ 2.SCI论文发表时间以在相关杂志网上公布并有DOI号，同时可通过MEDLINE检索时为准。</br>
+（三）成果 </br>
+1. 国家级科技奖励（二等奖第二名40分<%= data.awards.some((it)=>{ return it.level == '国家级科技奖励(二等奖第二名)'})?'★':''%>、第三名3０分<%= data.awards.some((it)=>{ return it.level == '国家级科技奖励(二等奖第三名)'})?'★':''%>、第四名20分<%= data.awards.some((it)=>{ return it.level == '国家级科技奖励(二等奖第四名)'})?'★':''%>、第五名10分<%= data.awards.some((it)=>{ return it.level == '国家级科技奖励(二等奖第五名)'})?'★':''%>）</br>
+2.中华医学奖（一等奖第一名30分<%= data.awards.some((it)=>{ return it.level == '中华医学奖(一等奖第一名)'})?'★':''%>、第二名20分<%= data.awards.some((it)=>{ return it.level == '中华医学奖(一等奖第二名)'})?'★':''%>、第三名10分<%= data.awards.some((it)=>{ return it.level == '中华医学奖(一等奖第三名)'})?'★':''%>；二等奖第一名20分<%= data.awards.some((it)=>{ return it.level == '中华医学奖(二等奖第一名)'})?'★':''%>、第二名10分<%= data.awards.some((it)=>{ return it.level == '中华医学奖(二等奖第二名)'})?'★':''%>；三等奖第一名１０分<%= data.awards.some((it)=>{ return it.level == '中华医学奖(三等奖第一名)'})?'★':''%>）</br>
+3.省、部级奖励（一等奖第一名30分<%= data.awards.some((it)=>{ return it.level == '省、部级奖励(一等奖第一名)'})?'★':''%>、第二名20分<%= data.awards.some((it)=>{ return it.level == '省、部级奖励(一等奖第二名)'})?'★':''%>、第三名10分<%= data.awards.some((it)=>{ return it.level == '省、部级奖励(一等奖第三名)'})?'★':''%>；二等奖第一名20<%= data.awards.some((it)=>{ return it.level == '省、部级奖励(二等奖第一名)'})?'★':''%>、第二名10分<%= data.awards.some((it)=>{ return it.level == '省、部级奖励(二等奖第二名)'})?'★':''%>；三等奖第一名10分<%= data.awards.some((it)=>{ return it.level == '省、部级奖励(三等奖第一名)'})?'★':''%>）</br>
+注：以上获奖同一项目不重复计分。</br>
+（四）学会任职</br>
+在全国专业学会担任委员及以上5分，青年委员3分。</br>
+</br>
+</br>
+</br>
+</br>
+综合得分：<%= data.total_score%>分；
+          </p>
+
+        </div>
+
+
+    </div>
+    <p class="f-page-number">11</p>
+  </div>
+
+    <!-- 第10页 -->
+  <div class="wgt-container explanation-common-pages explanation-6-pages">
+  <table>
+  <tr><td colspan='7'>（一）主持的科研项目</td></tr>
+  <tr><td style="width:20%;text-align:center;">项目名称</td><td style="width:20%;text-align:center;">项目性质</br>及来源</td><td  style="width:10%;text-align:center;">项目经费</br>（万元）</td><td style="width:10%;text-align:center;">起始</br>年度</td><td style="width:10%;text-align:center;">终止年度</td><td style="width:10%;text-align:center;" >排名</td><td style="width:10%;text-align:center;">评分</td></tr>
+   <%
+   var score = 0
+        for (var i in data.items){
+          var item = data.items[i]
+       score += item.score
+  %>
+      <tr><td style="text-align: center"><%= item.name %></td><td style="text-align: center"><%= item.source %></td><td  style="text-align: center"><%= item.fee %></td><td style="text-align: center"><%= item.start && item.start.substr(0,4)|'' %></td><td style="text-align: center"><%= item.end && item.end.substr(0,4) || '' %></td><td style="text-align: center" ><%= item.rank %></td><td style="text-align: center"><%= item.score %></td></tr>
+      <% }%>
+
+	<tr><td style="text-align:center;" colspan='7'>主持科研项目评分合计：<%= score %> </td></tr>
+  </table>
+  <p class="f-page-number">10</p>
+  </div>
+
+    <!-- 第11页 -->
+  <div class="wgt-container explanation-common-pages explanation-6-pages">
+  <table>
+  <tr><td colspan='7'>（二）获得的科研奖励</td></tr>
+  <tr><td style="width:40%;text-align:center;">获奖项目名称</td><td style="width:10%;text-align:center;">奖励名称</td><td  style="width:10%;text-align:center;">授奖单</br>位及</br>国别</td><td style="width:10%;text-align:center;">奖励</br>等级</td><td style="width:10%;text-align:center;">奖励</br>年度</td><td style="width:10%;text-align:center;" >排序</td><td style="width:10%;text-align:center;">评分</td></tr>
+
+      <%
+      var score = 0
+              for (var i in data.awards){
+          var item = data.awards[i]
+          score += item.score
+      %>
+      <tr><td ><%= item.name %></td><td ><%= item.award %></td><td  ><%= item.orgnazation %></td><td ><%= item.level %></td><td ><%= item.year?item.year.substr(0, 4):'' %></td><td  ><%= item.rank %></td><td ><%= item.score %></td></tr>
+      <%}%>
+
+   <tr><td  style="text-align:center;" colspan="7">科研奖励评分合计：<%= score%></td></tr>
+   <tr><td colspan='7'>（三）学会任职</td></tr>
+  <tr><td colspan="4" style="text-align:center;">学会名称</td><td style="text-align:center;" colspan="2">任职</td><td style="text-align:center;">评分</td></tr>
+      <%
+      var score = 0
+              for (var i in data.awards){
+          var item = data.awards[i]
+          score += item.score
+      %>
+      <tr><td colspan="4"><%= item.name %></td><td colspan="2"><%= item.renzhi %></td><td ><%= item.score %></td></tr>
+      <% }%>
+	<tr><td style="text-align:center;" colspan='7'> 学会任职评分合计：<%= score %></td></tr>
+  </table>
+  <p class="f-page-number">13</p>
+  </div>
+     <!-- 第12页 -->
+  <div class="wgt-container explanation-common-pages explanation-6-pages ">
+  <div class="explanation-common-pages rotate90deg" style="width:270mm;height:270mm;">
+  <table>
+  <tr><td colspan='7'>（四）申请人代表性著作、论文情况</td></tr>
+  <tr><td rowspan="2" style="width:58%;text-align:center;">著作或论文名称、出版单位或发表刊物名称、期号、起止页码、所有著作者姓名</br>
+（通讯作者请标注*号）</td>
+<td rowspan="2" style="width:10%;text-align:center;">出版或发</br>表时间</td>
+<td rowspan="2"  style="width:10%;text-align:center;">是否被SCI、</br>EI、SSCI、</br>CSSCI收录</td>
+<td rowspan="2" style="width:10%;text-align:center;">期刊影响因子值</td>
+<td colspan="3" style="text-align:center;">他引次数</td></tr>
+<tr><td style="width:4%;text-align:center;" >SCI</td><td style="width:4%;text-align:center;" >SSCI</td><td style="width:4%;text-align:center;">CSSI</td></tr>
+      <%
+      var score = 0
+              for (var i in data.papers){
+          var item = data.papers[i]
+          score += item.score
+      %>
+      <tr><td ><%= item.name %></td><td ><%= item.publish?item.publish.substr(0, 10):'' %></td><td  ><%= item.include %></td><td ><%= item.factor %></td><td ><%= item.sci %></td><td  ><%= item.ssci %></td><td ><%= item.cssi %></td></tr>
+      <%}%>
+
+   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
+   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
+   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
+   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
+   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
+   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
+   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
+ <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
+
+  </table>
+  </div>
+  <table>
+  <tr><td>文章评分合计：____________</td></tr></table>
+  <p class="f-page-number">14</p>
+  </div>
+  <!-- 第13页 -->
+  <div class="wgt-container explanation-common-pages index-pages">
+    <div class="no-border-cell2">
+    附件材料:
+  </div>
+    <div class="f-firstsize f-black f-tac title">
+        优秀专业学术人才出国奖励计划
+      <p>临床新技术新业务学习附件材料</p>
+    </div>
+
+    <p class="f-page-number">15</p>
+  </div>
+
+  <!-- 第14页 -->
+  <div class="wgt-container catalog-pages">
+    <div class="f-threesize f-black f-tac title">
+      目录
+    </div>
+    <div>
+        <%
+          var config = locals.ctx.app.config || {};
+          var cataData = {};
+          var filesId = {};
+          for(var i = 0;i<data.attachments.length;i++) {
+            var attr = data.attachments[i].type;
+            if (data.attachments[i].extra || data.attachments[i].files) {
+              var fileId = data.attachments[i].files || [];
+              if (cataData[attr]) {
+                const { extra = [] } = data.attachments[i];
+                var showVal = '';
+                extra.forEach(function(val, idx) {
+                  var dotFlg = idx == extra.length - 1 ? '' : '，';
+                  var tempItem = extra[idx];
+                  var value = tempItem.value;
+                  if (tempItem.type == 'time' && tempItem.value) {
+                    var date1 = new Date(tempItem.value);
+                    value = date1.getFullYear() + '-'+ (date1.getMonth()+1) + '-' + date1.getDate()
+                  } else if (tempItem.type == 'article_zuozhe' && tempItem.value) {
+                    value = '';
+                    for (var m = 0; m < tempItem.value.length; m++) {
+                      value += (tempItem.value[m].key + ' ');
+                    }
+                  }
+                  if (value[0] && value[0].label) {
+                    value = value[0].label;
+                  }
+                  showVal += value + dotFlg;
+                })
+                cataData[attr].push({
+                  extra: showVal,
+                  files: fileId,
+                });
+              } else {
+                cataData[attr] = [];
+                filesId[attr] = [];
+                const { extra = [] } = data.attachments[i];
+                var showVal = '';
+                extra.forEach(function(val, idx) {
+                  var dotFlg = idx == extra.length - 1 ? '' : '，';
+                  var tempItem = extra[idx];
+                  var value = tempItem.value;
+                  if (tempItem.type == 'time' && tempItem.value) {
+                    var date1 = new Date(tempItem.value);
+                    value = date1.getFullYear() + '-'+ (date1.getMonth()+1) + '-' + date1.getDate()
+                  } else if (tempItem.type == 'article_zuozhe' && tempItem.value) {
+                    value = '';
+                    for (var m = 0; m < tempItem.value.length; m++) {
+                      value += (tempItem.value[m].key + ' ');
+                    }
+                  }
+                  if (value[0] && value[0].label) {
+                    value = value[0].label;
+                  }
+                  showVal += value + dotFlg;
+                })
+                cataData[attr].push({
+                  extra: showVal,
+                  files: fileId,
+                });
+              }
+            }
+          }
+
+
+          Object.keys(cataData).forEach(function(value, index) {
+            var itemData = cataData[value];  // value 代表类型
+
+            var catalogTxt = value == 'idcard' ? '身份证' : value == 'acd' ? '学位学历证书': value == 'personnel' ? '重要人才项目批件' : value == 'learn' ? '重要学会认证证书' : value == 'article' ? '代表性文章复印件及检索证明' : value == 'others' ? '其他附件' : '重要科研项目批件';
+            %>
+              <div class="f-fivesize dir-item">
+              <p class="f-fivesize dir-title"><%= index+1%>. <%=  catalogTxt%></p>
+            <%
+
+            for(var i = 0; i < itemData.length; i++) {
+              const { extra, files = [] } = itemData[i];
+              %>
+                <ul class="dir-list">
+                  <li class="dir-child-item">
+                    <p>
+                      <span><%= index+1%>.<%= i+1%> <%= extra ? extra : catalogTxt+(i+1) %></span>
+                    </p>
+                  </li>
+                  <%
+                    for(var j = 0; j < files.length; j++) {
+                      const { name, url } = files[j];
+                      var downUrl = (config.pathPrefix || '') + '/api/file/download/'+url;
+                      %>
+                        <div>
+                          <ul class="dir-list">
+                              <li class="dir-child-item">
+          
+                                  <span><%= index+1%>.<%= i+1%>.<%= j+1%> <%= name ? name : '' %></span>
+
+                              </li>
+                            </ul>
+                        </div>
+                      <%
+                    }
+                  %>
+                </ul>
+              <%
+
+            }
+          })
+        %>
+    </div>
+    <p class="f-page-number">16</p>
+  </div>
+  <!-- 第15页 -->
+  <div class="wgt-container explanation-common-pages index-pages">
+    <div style="font-famaily:'黑体';font-size:15pt;" class="f-firstsize f-black f-tac title">
+       承 诺 书
+<p>本人承诺，以上填写的所有内容和提供的材料真实可信，如有违反，本人自愿退出优秀人才出国奖励计划，退回医院提供的奖励资金，并承担其他一切后果。</p>
+           </br>
+		   </br>
+		   </br>
+		   </br>
+ <p>承诺人：<%= data.applicantName%></p>
+    </div>
+
+    <p class="f-page-number">17</p>
+  </div>
+</body>
+</html>

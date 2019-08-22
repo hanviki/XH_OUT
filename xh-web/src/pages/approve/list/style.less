@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+@import "../../../resources/styles/mixins";
+
+.p-approve-list{
+	.m-tit{
+		font-size: 20px;
+		margin-bottom: 30px;
+		font-weight: bold;
+	}
+	
+	.m-opt{
+		.opt-item{
+			&:hover{
+				text-decoration: underline;
+			}
+			&~.opt-item{
+				margin-left: 10px;
+				color: #4c4c4c;
+			}
+		}
+	}
+	
+	.m-tag{
+		margin-bottom: -10px;
+		.ant-tag{
+			margin-bottom: 10px;
+		}
+	}
+}

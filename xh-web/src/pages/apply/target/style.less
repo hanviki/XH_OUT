@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+@import "../../../resources/styles/mixins";
+
+.p-apy-target{
+	.m-tit{
+		font-size: 20px;
+		margin-bottom: 30px;
+		font-weight: bold;
+	}
+
+	.m-target {
+		width: 650px;
+		margin: 0 auto;
+		border: 1px solid #ddd;
+		&~.m-target{
+			margin-top: 15px;
+		}
+		.target-tit {
+			text-align: center;
+			font-size: 18px;
+			color: #333;
+			background-color: #f0f0f0;
+			border-bottom: 1px solid #ddd;
+			padding: 10px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		.target-box{
+			&.none{
+				display: none;
+			}
+		}
+		.target {
+
+		}
+		.target-hd {
+			font-size: 16px;
+			color: #333;
+			padding: 10px;
+			border-bottom: 1px dashed #ddd;
+			border-top: 1px solid #ddd;
+			font-weight: bold;
+			margin-top: -1px;
+		}
+		.target-bd {
+
+		}
+		.bd-item {
+			padding: 15px 15px;
+			&~.bd-item{
+				border-top: 1px dashed #ddd;
+			}
+		}
+		.item-chb {
+			padding-bottom: 10px;
+		}
+		.item-extra {
+
+		}
+	}
+
+	.m-submit{
+		width: 650px;
+		margin: 0 auto;
+		padding: 30px 0;
+	}
+
+	.unit-error{
+		color: #f00;
+		&.none{
+			display: none;
+		}
+	}
+}

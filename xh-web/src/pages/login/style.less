@@ -1,0 +1,115 @@
+@charset "utf-8";
+
+@import "../../resources/styles/mixins";
+
+.p-login {
+  .g-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url(../../resources/images/login-bg.jpg) no-repeat center center;
+    background-size: cover;
+  }
+  .m-login {
+    width: 440px;
+    background-color: #fff;
+    border-radius: 6px;
+    .login-tit {
+      font-size: 22px;
+      color: #505050;
+      text-align: center;
+      margin: 15px 0 30px;
+    }
+    .login-box {
+      padding: 0 50px;
+    }
+    .login-item {
+      & ~ .login-item {
+        margin-top: 15px;
+      }
+    }
+    .item-label {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .item-ct {
+      display: flex;
+      align-items: flex-end;
+    }
+    .item-ct-ipt {
+      display: block;
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      border-bottom: 1px solid #d8d8d8;
+      padding: 5px 0;
+      font-size: 16px;
+      &:focus {
+        background-color: #fff;
+      }
+      &.error {
+        border-bottom-color: #f00;
+        color: #f00;
+        &::placeholder {
+          color: #f00;
+        }
+      }
+    }
+    .item-ct-ipt-btn {
+      line-height: 33px;
+      padding: 0 10px;
+      border: 1px solid @primary-color;
+      cursor: pointer;
+      border-radius: 3px;
+      color: @primary-color;
+      
+      &.disabled {
+        border-color: #aaa;
+        color: #aaa;
+      }
+    }
+    .login-btn {
+      margin-top: 50px;
+      background-color: @primary-color;
+      text-align: center;
+      line-height: 50px;
+      height: 50px;
+      font-size: 20px;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  
+  .m-fixed-tips {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    z-index: 9;
+    border-radius: 4px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .15);
+    overflow: hidden;
+    .tips-hd {
+      font-size: 16px;
+      background: #f0f0f0;
+      padding: 10px 15px;
+    }
+    .tips-bd {
+      padding: 15px 40px 15px 15px;
+    }
+    .bd-item {
+      font-size: 14px;
+      & ~ .bd-item {
+        margin-top: 8px;
+      }
+      a {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

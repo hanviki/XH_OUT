@@ -1,0 +1,64 @@
+{
+  "name": "whxh-server",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "egg-cors": "^2.1.1",
+    "egg-fortress": "^1.0.1",
+    "egg-knex": "^2.0.0",
+    "egg-redis": "^2.0.0",
+    "egg-scripts": "^2.5.0",
+    "egg-session-redis": "^2.1.0",
+    "egg-view-ejs": "^2.0.0",
+    "mkdirp": "^0.5.1",
+    "mysql2": "^1.6.1",
+    "puppeteer": "^1.4.0",
+    "pdfmerger": "^0.2.0",
+    "soap": "^0.25.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "autod": "^3.0.1",
+    "autod-egg": "^1.0.0",
+    "egg-bin": "^4.3.5",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.14.0",
+    "eslint": "^4.11.0",
+    "eslint-config-egg": "^6.0.0",
+    "webstorm-disable-index": "^1.2.0",
+    "apidoc": "^0.17.6"
+  },
+  "egg": {
+    "framework": "egg-fortress"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon --title=whxh-server --port=7705",
+    "stop": "egg-scripts stop --title=whxh-server --port=7705",
+    "docker": "egg-scripts start --title=whxh-server --port=7705",
+    "dev": "egg-bin dev --port=7705",
+    "debug": "egg-bin debug --port=7705",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod",
+    "doc": "apidoc -i app/controller -f \".*\\.js$\" -o app/public/docs"
+  },
+  "apidoc": {
+    "title": "接口文档"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "MIT"
+}

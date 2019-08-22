@@ -1,0 +1,45 @@
+version: '3'
+services:
+  xh-declare-server:
+    image: fe-support_xh-declare-server:latest
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - EGG_SERVER_ENV=prod
+    command: /bin/sh -c "flyway -url=jdbc:mysql://db -schemas=declare -user=root -password=DYHGujh09RKyIdRR migrate && npm run docker"
+    volumes:
+      - ./logs:/usr/src/app/logs
+      - ./files:/usr/src/app/files
+    depends_on:
+      - db
+      - redis
+    networks:
+      - docker_xh-declare-server
+    ports:
+      - 6605:6605
+  db:
+    image: mysql:5.7
+    restart: always
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      - MYSQL_ROOT_PASSWORD=DYHGujh09RKyIdRR
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    networks:
+      - docker_xh-declare-server
+    ports:
+      - 3306:3306
+  redis:
+    image: redis:3.2-alpine
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - ./db/redis:/data
+    networks:
+      - docker_xh-declare-server
+    ports:
+      - 6379:6379
+
+networks:
+  docker_xh-declare-server:
+    driver: bridge

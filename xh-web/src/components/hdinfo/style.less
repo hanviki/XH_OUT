@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+@import "../../resources/styles/mixins";
+
+.wgt-hd-info{
+  margin-bottom: 30px;
+}
+.wgt-hd-info-tit {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.wgt-hd-stp {
+  padding: 10px 15px;
+  box-shadow: 0 3px 2px 0 rgba(0,0,0,.15) inset;
+  border-radius: 4px;
+}
+
+.wgt-hd-stp-tit {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.wgt-hd-stp-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wgt-hd-stp-item {
+  font-size: 16px;
+  display: block;
+  flex: 1 0 33.333%;
+  margin-bottom: 8px;
+  cursor: pointer;
+  color: @primary-color;
+  
+  font-weight: normal;
+  &:hover {
+    text-decoration: underline;
+  }
+  &.disabled {
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

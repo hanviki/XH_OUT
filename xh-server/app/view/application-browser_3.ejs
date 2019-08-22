@@ -1,0 +1,311 @@
+<%
+  const _ = data._;
+  const DECIDERS_MAP = data.DECIDERS_MAP;
+  const DECIDERS_ORDER = data.DECIDERS_ORDER;
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>高水平科学研究</title>
+  <link type="text/css" rel="stylesheet" href="../public/resources/styles/common.css">
+  <link type="text/css" rel="stylesheet" href="../public/resources/styles/index.css">
+  <link type="text/css" rel="stylesheet" href="../public/resources/styles/explanation.css">
+  <link type="text/css" rel="stylesheet" href="../public/resources/styles/catalog.css">
+</head>
+<body>
+  <div class="wgt-container index-pages">
+    <div class="f-foursize">
+      <span class="number">编号_______</span>
+    </div>
+    <div class="f-firstsize f-black f-tac title">
+    协和医院优秀专业学术人才出国
+      <p>奖励计划高水平学术会议交流申请表</p>
+    </div>
+    <div class="info-cell">
+      <div class="f-threesize f-black info-item">
+        <p class="label">科室名称:</p>
+        <div class="input-value"><%= data.deptName %></div>
+      </div>
+      <div class="f-threesize f-black info-item">
+        <p class="label">申请人姓名:</p>
+        <div class="input-value"><%= data.applicantName %></div>
+      </div>
+      <div class="f-threesize f-black info-item">
+        <p class="label">专业技术职务:</p>
+        <div class="input-value"><%= data.zyzw %></div>
+      </div>
+
+      <div class="f-threesize f-black info-item">
+        <p class="label">填表时间:</p>
+        <%
+          if ( data.applyTime) {
+            var formatData = new Date(data.applyTime);
+        %>
+          <div class="input-value"><%= formatData.getFullYear()%><span class="split">年</span><%= formatData.getMonth()+1%><span class="split">月</span><%= formatData.getDate()%><span class="split">日</span></div>
+        <%}%>
+      </div>
+    </div>
+    <p class="f-foursize f-tac f-black footer-tips">协和医院制表</p>
+    <p class="f-page-number">1</p>
+  </div>
+
+  <!-- 第二页 -->
+  <div class="wgt-container explanation-pages">
+    <div class="f-s-secondsize f-black f-tac title">填  写  说  明</div>
+
+    <div class="f-foursize content-cell">
+      <div class="content-item">
+        <span class="label">一、</span>
+        <p class="content">本表适用于申请临床新技术新业务学习人员使用；</p>
+      </div>
+      <div class="content-item">
+        <span class="label">二、</span>
+        <p class="content">填写本表前，请认真阅读表内的各项要求，并如实填写各项内容；</p>
+      </div>
+      <div class="content-item">
+        <span class="label">三、</span>
+        <p class="content">本表第一至三项由候选人本人填写，科室负责审核；</p>
+      </div>
+      <div class="content-item">
+        <span class="label">四、</span>
+        <p class="content">本表第四各项由科室负责填写；</p>
+      </div>
+	    <div class="content-item">
+        <span class="label">五、</span>
+        <p class="content">本表内有关栏目填写不下的，可另附页；</p>
+      </div>
+	   <div class="content-item">
+        <span class="label">六、</span>
+        <p class="content">本表请用小四号宋体字填写，A4纸单面打印，一式两份；</p>
+      </div>
+	   <div class="content-item">
+        <span class="label">七、</span>
+        <p class="content">附件材料与申报表一起成册装订。</p>
+      </div>
+    </div>
+    <p class="f-page-number">2</p>
+  </div>
+
+  <!-- 第三页 -->
+  <div class="wgt-container explanation-common-pages explanation-1-pages">
+    <table>
+	<tr><td colspan='8' style='font-weight: 700;'>一、基本情况</td></tr>
+	<tr><td style="width:10%;">姓名</td><td style="width:15%;"><%= data.applicantName %></td><td style="width:10%;">性别</td><td style="width:10%;"><%= data.applicantGender?'男':'女' %></td><td style="width:10%;">联系电话</td><td style="width:20%;"><%= data.applicantMobile %></td><td style="width:10%;">出生日期</td><td style="width:15%;"><%= data.applicantBirthday %></td></tr>
+	<tr><td>最后学位</td><td colspan='7'><%= data.education %></td></tr>
+	<tr><td>现任职科室</td><td colspan='2'><%= data.deptName %></td><td colspan='2'>现任职务</td><td><%= data.xzzw %></td><td>聘任时间</td><td><%=data.applicantHiredate%></td></tr>
+	<tr><td colspan='8' style='font-weight: 700;'>二、会议情况</td></tr>
+
+	<tr><td rowspan="2">会议名称</td><td colspan='7'>中文:<%=data.hymczw%></td></tr>
+	<tr><td colspan='7'>英文：<%=data.hymcyw%></td></tr>
+	<tr><td style="height:98px;">会议日期</td><td colspan="7">自___<%=data.hykssj && data.hykssj.substr(0,4)%>___年___<%=data.hykssj && data.hykssj.substr(5,2)%>___月__<%=data.hykssj && data.hykssj.substr(8,2)%>____日至__<%=data.hykssj && data.hyjssj.substr(0,4)%>____年__<%=data.hykssj && data.hyjssj.substr(5,2)%>____月__<%=data.hykssj && data.hyjssj.substr(8,2)%>____日</td></tr>
+	<tr><td>会议主办方</td><td colspan="7"><%=data.hyzbf%></td></tr>
+	<tr><td style="height:70px;">会议地点</td><td colspan="7"><%=data.hydd%></td></tr>
+
+	<tr><td style="height:245px;">会议简历</td><td colspan="7">会议的规模、影响以及参会的积极意义：<p><%=data.hyjj%></p></td></tr>
+
+	</table>
+    <p class="f-page-number">3</p>
+  </div>
+
+     <!-- 第4页 -->
+  <div class="wgt-container explanation-common-pages explanation-3-pages">
+    <table>
+	<tr><td colspan='4' style='font-weight: 700;'>三、参会情况</td></tr>
+	<tr><td colspan='4'>1.参会角色</td></tr>
+	<tr><td style="text-align:center;">主席</td><td style="text-align:center;">执行主席</td><td style="text-align:center;">主持人</td><td style="text-align:center;">口头报告</td></tr>
+	<tr><td ><%=data.hyzx%></td><td><%=data.hyzxzx%></td><td><%=data.hyzcr%></td><td ><%=data.hybg%></td></tr>
+	<tr><td colspan='4'>2.拟提交会议交流内容</td></tr>
+
+	<tr><td colspan="4" style="height:700px;">
+            <p><%=data.hylr%></p>
+	<p style="width:80%;padding-right:100px;text-align:right;margin-top: 500px;">签&nbsp;&nbsp;字：</p>
+	<p style="width:80%;padding-right:100px;text-align:right;margin-top: 20px;">年&nbsp; 月&nbsp; 日</p>
+	</td></tr>
+	</table>
+    <p class="f-page-number">4</p>
+  </div>
+
+
+
+
+  <!-- 第5页 -->
+  <div class="wgt-container explanation-common-pages explanation-5-pages">
+    <div class="cell">
+      <div class="f-foursize">
+        <div class="explanation-fill-cell">
+          <div class="item">
+            <div class="title value">四、科室对于申请人出国参加高水平学术会议交流的效益预估，对学科发展的意义，对提高医院国际影响力的意义。</div>
+          </div>
+        </div>
+      </div>
+
+        <div class="f-foursize sign-item">
+          <p class="pass-txt" style="min-height: 800px;">
+            <span class="f-foursize">1. <%= data.reviews[0] && data.reviews[0].reviewState !=0 && data.reviews[0].ywcyj1 || ''%><br></span>
+              <span class="f-foursize">2. <%= data.reviews[0] && data.reviews[0].reviewState !=0 && data.reviews[0].ywcyj2 || ''%><br></span>
+              <span class="f-foursize">3. <%= data.reviews[0] && data.reviews[0].reviewState !=0 && data.reviews[0].ywcyj3 || ''%><br></span>
+            <span class="f-s-foursize"></span>
+          </p>
+
+            <div class="pass-remark">
+              <p>负责人(签字)：<%= data.reviews[0] && data.reviews[0].reviewState !=0 && data.reviews[0].reviewerName || ''%></p>
+              <p>日期：<%= data.reviews[0] && data.reviews[0].reviewState !=0 && data.reviews[0].reviewTime || '' %></p>
+            </div>
+
+        </div>
+    </div>
+    <p class="f-page-number">6</p>
+  </div>
+
+  <!-- 第七页 -->
+  <div class="wgt-container explanation-common-pages explanation-5-pages">
+      <div class="cell">
+          <div class="f-foursize">
+              <div class="explanation-fill-cell">
+                  <div class="item">
+                      <div class="title value">五、思想政治素质、师德师风及意识形态考核情况（请写明详细考核意见）</div>
+                  </div>
+              </div>
+          </div>
+          <%
+          const reviewsMap = _.keyBy(data.reviews, 'reviewerId');
+          for(var i = 0; i < DECIDERS_ORDER.length; i++) {
+              var itemData = reviewsMap[DECIDERS_MAP[DECIDERS_ORDER[i]]];
+              var bottomBor = i == DECIDERS_ORDER.length-1 ? 'style=border-bottom:none' : ''
+          if (i < DECIDERS_ORDER.length) {
+          %>
+              <div class="f-foursize sign-item" <%= bottomBor%>>
+                  <p class="pass-txt">
+                      <span class="f-foursize"><%= DECIDERS_ORDER[i] %>：</span>
+                      <span class="f-s-foursize"><%= itemData && itemData.reviewState != 0 && itemData.reviewAdvice || ''%></span>
+                  </p>
+                  <%
+                  if (itemData && itemData.reviewState != 0) {
+                  %>
+                      <div class="pass-remark" style="margin-top: 0px">
+                          <p>负责人签字：
+                              <%=
+                                  itemData.reviewerName || '';
+                              %></p>
+                          <p>日期：
+                              <%
+                              if ( itemData.reviewState != 0) {
+                                  var formatData = new Date(itemData.reviewTime);
+                              %>
+                              <span class="input-value"><%= formatData.getFullYear()%><span class="split">年</span><%= formatData.getMonth()+1%><span class="split">月</span><%= formatData.getDate()%><span class="split">日</span></span>
+                              <%}%>
+                          </p>
+                      </div>
+                  <%} else {%>
+                      <div class="pass-remark" style="margin-top: 0px">
+                          <p>负责人签字：</p>
+                          <p>日期：</p>
+                      </div>
+                  <%}%>
+              </div>
+          <%}}%>
+      </div>
+      <p class="f-page-number">7</p>
+  </div>
+
+
+  <!-- 第6页 -->
+  <div class="wgt-container explanation-common-pages explanation-6-pages">
+    <div class="no-border-cell">
+        <div class="f-foursize explanation-fill-cell">
+          <div class="item">
+            <div class="title value">六、科研处审核意见</div>
+          </div>
+        </div>
+        <div class="f-foursize sign-item" style="padding: 0 10px">
+          <p class="pass-txt">
+          1.所学内容是否具有先进性和可行性：是<%= data.reviews[1] && data.reviews[1].reviewState != 0 && data.reviews[1].sfxj?'■':'□' %>    否<%= data.reviews[1] && data.reviews[1].reviewState != 0 &&  !data.reviews[1].sfxj?'■':'□' %>  </br>
+          2.是否推荐出国学习：     推荐<%= data.reviews[1] && data.reviews[1].reviewState != 0 && data.reviews[1].sftj?'■':'□' %>       不推荐<%= data.reviews[1] && data.reviews[1].reviewState != 0 && !data.reviews[1].sftj?'■':'□' %>    </br>
+          3.其他审核意见：<%= data.reviews[1] && data.reviews[1].reviewState != 0 && data.reviews[1].reviewAdvice || ''%>
+          </p>
+          <div class="pass-remark" style="margin-top: 40px">
+            <p>负责人签字：<%= data.reviews[1] && data.reviews[1].reviewState != 0 && data.reviews[1].reviewerName || ''%></p>
+              <p>日期：<%= data.reviews[1] && data.reviews[1].reviewState != 0 && data.reviews[1].reviewTime || ''%></p>
+          </div>
+        </div>
+      <div class="f-foursize explanation-fill-cell">
+        <div class="item">
+          <div class="title value">七、人才工作领导小组办公室审核意见</div>
+        </div>
+      </div>
+      <div class="f-foursize sign-item">
+        <p class="pass-txt"><%= data.groupAdvice%></p>
+          <div class="pass-remark" style="margin-top: 40px">
+              <p>办公室主任：<%= data.groupName%></p>
+              <%
+              if (data.updatedAt && data.groupName) {
+                var formatData = new Date(data.updatedAt);
+            %>
+              <p>日期：<%= formatData.getFullYear()%><span class="split">年</span><%= formatData.getMonth()+1%><span class="split">月</span><%= formatData.getDate()%><span class="split">日</span></p>
+            <%} else { %>
+              <p>日期：</p>
+            <%}%>
+          </div>
+        </div>
+      <div class="f-foursize explanation-fill-cell">
+        <div class="item">
+          <div class="title value">八、医院审批意见</div>
+        </div>
+      </div>
+      <div class="f-foursize sign-item">
+        <p class="pass-txt" style="margin-top: 30px;text-indent: 2em">批准留学时间：自    年   月   日至    年   月   日，共   月
+资助金额：     万元</p>
+        <div class="pass-remark">
+          <p>院长签字：</p>
+          <p>时间：</p>
+        </div>
+      </div>
+
+    </div>
+    <p class="f-page-number">6</p>
+  </div>
+
+   <!-- 第7页 -->
+  <div class="wgt-container explanation-common-pages explanation-3-pages">
+    <table>
+	<tr><td colspan='5' style='font-weight: 700;text-align:center:'>高水平学术会议交流考核表</td></tr>
+	<tr><td colspan="2">姓名</td><td></td><td>科室</td><td ></td></tr>
+	<tr><td colspan="2">专业技术</br>职务</td><td style="width:25%;"></td><td style="width:25%;">聘任时间</td><td style="width:25%;"></td></tr>
+	<tr><td colspan="2">参会时间</td><td colspan="3"></td></tr>
+	<tr><td style="height:800px;width:10%;vertical-align:middle;text-align:center;">个</br>人</br>总</br>结</td><td colspan='4'>
+	<p style="width:80%;padding-right:100px;text-align:right;margin-top: 650px;">签&nbsp;&nbsp;字：</p>
+	<p style="width:80%;padding-right:100px;text-align:right;margin-top: 20px;">时间：</p>
+	</td></tr>
+	</table>
+    <p class="f-page-number">7</p>
+  </div>
+  <!-- 第8页 -->
+  <div class="wgt-container explanation-common-pages explanation-3-pages">
+    <table>
+	<tr><td style='font-weight: 700;text-align:center;vertical-align:middle;height:180px;width:15%;'>科室意见</td><td>
+	<p style="width:80%;text-align:right;margin-top: 120px;">签&nbsp;&nbsp;字：</p>
+	<p style="width:80%;text-align:right;margin-top: 10px;">时间：</p>
+	</td></tr>
+	<tr><td style='font-weight: 700;text-align:center;vertical-align:middle;height:180px;'>国际交流办</br>公室审核意见</td><td>
+	<p style="width:80%;text-align:right;margin-top: 120px;">签&nbsp;&nbsp;字：</p>
+	<p style="width:80%;text-align:right;margin-top: 10px;">时间：</p>
+	</td></tr>
+	<tr><td style='font-weight: 700;text-align:center;vertical-align:middle;height:180px;'>人才工作领</br>导小组办公室</br>审核意见</td><td>
+	<p style="width:80%;text-align:right;margin-top: 120px;">签&nbsp;&nbsp;字：</p>
+	<p style="width:80%;text-align:right;margin-top: 10px;">时间：</p>
+	</td></tr>
+	<tr><td colspan="2" style="vertical-align:middle;">
+	<p style="font-weight: 700; ">医院审批意见</p>
+
+	<p style="width:30%;text-align:right;margin-top: 120px;">资助金额：________万元</p>
+	<p style="width:80%;text-align:right;margin-top: 120px;">院长签字：</p>
+	<p style="width:80%;text-align:right;margin-top: 10px;">时间：</p>
+	</td></tr>
+	</table>
+    <p class="f-page-number">8</p>
+  </div>
+</body>
+</html>

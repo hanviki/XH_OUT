@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+@import "../../../resources/styles/mixins";
+
+.p-apy-level{
+	.m-tit{
+		font-size: 20px;
+		margin-bottom: 30px;
+		font-weight: bold;
+	}
+	.m-choose{
+		width: 500px;
+		margin: 0 auto;
+		padding: 80px;
+		.choose-tit{
+			font-size: 20px;
+			text-align: center;
+		}
+		.choose-box{
+			text-align: center;
+		}
+		.choose-item{
+			&~.choose-item{
+				margin-top: 40px;
+			}
+		}
+	}
+}
