@@ -258,7 +258,23 @@ class Widget extends React.Component {
               })(
                   <Input placeholder="请在此输入" />
               )}
-            </FormItem>
+                    </FormItem>
+                    {
+                        detail.level == 3 ?
+                            <FormItem
+                                {...formItemLayout}
+                                label="聘任时间"
+                            >
+                                {getFieldDecorator('applicantHiredate', {
+                                     rules: [{
+                                       required: true, message: '请填写正确的内容',
+                                     }],
+                                    initialValue: detail.applicantHiredate ? moment(detail.applicantHiredate, 'YYYY-MM-DD') : '',
+                                })(
+                                    <DatePicker />
+                                )}
+                            </FormItem> : null
+                    }
             {
               detail.level != 3?
               <FormItem
@@ -286,9 +302,9 @@ class Widget extends React.Component {
                         required: true, message: '请填写正确的内容',
                       }],
                       initialValue: detail.ylkh,
-                    })(
-                        <Input placeholder="请在此输入" />
-                    )}
+                                })(
+                                    <Input placeholder="请在此输入" />
+                                )}
                   </FormItem>:null
             }
             {
