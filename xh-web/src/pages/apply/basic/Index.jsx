@@ -43,7 +43,10 @@ const next = {
 class Widget extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    const { apply = {} } = this.props;
+    const { detail = {} } = apply;
+    this.state = {checked: detail.dddz};
   }
 
   componentDidMount() {
@@ -60,10 +63,8 @@ class Widget extends React.Component {
 
     });
   }
-    onChange = () => {
 
-    }
-    handleSubmit = (nextFlag) => {
+  handleSubmit = (nextFlag) => {
     this.props.form.validateFields((err, values) => {
       if (err) {
         console.log(err)
@@ -87,10 +88,18 @@ class Widget extends React.Component {
   updateDetail = (values, nextFlag) => {
     const { apply = {}, dispatch, location = {} } = this.props;
     const { id = '' } = queryStringToJson(location.search || '');
+    const { detail = {} } = apply;
+
+    var section = (detail.section || '')
+    if (!section.match(/basic;/)){
+      section += 'basic;'
+    }
+
     dispatch({
       type: 'apply/updateDetail',
       payload: {
         id: parseInt(id),
+        section: section,
         ...values,
       },
     }).then((data) => {
@@ -294,23 +303,25 @@ class Widget extends React.Component {
                       }],
                       initialValue: detail.dddz,
                     })(
-                  <RadioGroup onChange={this.onChange}>
+                        <RadioGroup onChange={(e)=>{
+                          this.setState({checked: e.target.value})
+                        }}>
                           <Radio value={1}>是</Radio>
-                          <Radio  value={0}>否</Radio>
+                          <Radio value={0}>否</Radio>
                         </RadioGroup>
                     )}
                   </FormItem>:null
             }
             {
-              detail.level != 3 ?
+              detail.level != 3 && this.state.checked  ?
                   <FormItem
                       {...formItemLayout}
                       label="开始带组时间"
                   >
                     {getFieldDecorator('dzsj', {
-                      //rules: [{
-                      //  required: true, message: '请填写正确的内容',
-                      //}],
+                      // rules: [{
+                      //   required: true, message: '请填写正确的内容',
+                      // }],
                       initialValue: detail.dzsj ?moment(detail.dzsj, 'YYYY-MM-DD'):'',
                     })(
                         <DatePicker  />

@@ -45,9 +45,9 @@ const tailFormItemLayout = {
 };
 
 const fileds = {
-  1: ['ywcyj1', 'ywcyj2', 'ywcyj3', 'ywcyj4', 'reason'],
+  1: ['ywcyj1', 'ywcyj2', 'ywcyj3', 'ywcyj4', 'ywcyj5', 'reason'],
   2: ['ywcyj1', 'ywcyj2', 'ywcyj3', 'ywcyj4', 'reason'],
-  3: ['ywcyj1', 'ywcyj2', 'ywcyj3', 'ywcyj4', 'reason'],
+  3: ['ywcyj1', 'ywcyj2', 'ywcyj3', 'reason'],
 }
 
 class Widget extends React.Component {
@@ -328,8 +328,8 @@ class Widget extends React.Component {
                 {getFieldDecorator('ywcyj2', {
                   rules: [{
                     required: true, message: '请填写审核意见',
-                    initialValue: reviewState.ywcyj2,
                   }],
+                  initialValue: reviewState.ywcyj2,
                 })(
                     <TextArea rows={5} placeholder="请在此填写" disabled={reviewState.reviewState !== 0}/>
                 )}
@@ -337,8 +337,8 @@ class Widget extends React.Component {
                 {getFieldDecorator('ywcyj3', {
                   rules: [{
                     required: true, message: '请填写审核意见',
-                    initialValue: reviewState.ywcyj3,
                   }],
+                  initialValue: reviewState.ywcyj3,
                 })(
                     <TextArea rows={5} placeholder="请在此填写" disabled={reviewState.reviewState !== 0}/>
                 )}

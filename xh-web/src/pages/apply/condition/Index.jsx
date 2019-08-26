@@ -211,6 +211,10 @@ class Widget extends React.Component {
       return;
     }
 
+    if (!nextFlag){
+      return;
+    }
+
     if (this.state.tab == 6){
       const { apply = {}, dispatch, location = {} } = this.props;
       dispatch(routerRedux.push({
@@ -225,10 +229,17 @@ class Widget extends React.Component {
   updateDetail = (values,nextFlag) => {
     const { apply = {}, dispatch, location = {} } = this.props;
     const { id = '' } = queryStringToJson(location.search || '');
+    const { detail = {} } = apply;
+
+    var section = (detail.section || '')
+    if (!section.match(/condition;/) && this.state.tab == 1){
+      section += 'condition;'
+    }
     dispatch({
       type: 'apply/updateDetail',
       payload: {
         id: parseInt(id),
+        section: section,
         ...values,
         score: this.getScore()
       },
@@ -2029,7 +2040,7 @@ class Widget extends React.Component {
           </Form>
         </Modal>
         <div className="m-submit">
-          <Button type="primary" style={{ marginRight: '15px' }}> 仅保存</Button>
+          <Button type="primary" style={{ marginRight: '15px' }} onClick={() => this.handleSubmit(false)}> 仅保存</Button>
           <Button type="primary" onClick={() => this.handleSubmit(true)}>保存并进入下一步</Button>
         </div>
       </Form>

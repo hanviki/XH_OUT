@@ -143,16 +143,43 @@ class Widget extends React.Component {
       });
     }
 
+    if (!tmpArr.some(val => val.type == 'jianli')) {
+      message.error('请上传简历！');
+      return
+    }
+
+    if (!tmpArr.some(val => val.type == 'idcard')) {
+      message.error('请上传身份证！');
+      return
+    }
+
+    if (!tmpArr.some(val => val.type == 'jianli')) {
+      message.error('请上传简历！');
+      return
+    }
+
+    if (!tmpArr.some(val => val.type == 'acd')) {
+      message.error('请上传学历！');
+      return
+    }
+
     this.updateDetail(tmpArr, nextFlag);
   }
 
   updateDetail = (values, nextFlag) => {
-    const { dispatch, location = {} } = this.props;
+    const { apply = {}, dispatch, location = {} } = this.props;
     const { id = '' } = queryStringToJson(location.search || '');
+    const { detail = {} } = apply;
+
+    var section = (detail.section || '')
+    if (!section.match(/appendix;/)){
+      section += 'appendix;'
+    }
     dispatch({
       type: 'applyAppendix/updateAppend',
       payload: {
         id: parseInt(id),
+        section:section,
         attachments: values,
       },
     }).then((data) => {
@@ -298,6 +325,12 @@ class Widget extends React.Component {
     });
   }
 
+  previewFile = (file) => {
+    console.log('Your upload file:', file);
+    // Your process logic. Here we just mock to the same file
+    return '/api/file/download/' + file.url
+  }
+
   render() {
     const { state = {} } = this;
     const { showList = {}, userData = [] } = state;
@@ -328,7 +361,7 @@ class Widget extends React.Component {
                           <div className="append-hd">
                             <div className="hd-txt">{key + 1}-{index + 1}.{value.value}{index + 1}</div>
                             {
-                              (value.key == 'idcard' || value.key == 'acd') && index == 0 ?
+                              (value.key == 'jianli' || value.key == 'idcard' || value.key == 'acd') && index == 0 ?
                                 null
                                 : <div className="hd-extra" onClick={() => this.delItem(value.key, index)}>删除</div>
                             }
@@ -536,6 +569,7 @@ class Widget extends React.Component {
                                   <Upload
                                     {...props}
                                     fileList={item.files}
+                                    previewFile={this.previewFile}
                                   >
                                     <Button>
                                       <Icon type="upload" /> 点击上传附件材料

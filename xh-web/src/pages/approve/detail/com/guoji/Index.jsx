@@ -134,7 +134,6 @@ class Widget extends React.Component {
     const { getFieldDecorator } = form;
     const { detail = {} } = modelData;
     const reviewState = this.getReviewState() || '';
-    this.state.checked = reviewState.sfcj?true:false
     return (
       <Form className="m-info">
         <FormItem
@@ -201,9 +200,8 @@ class Widget extends React.Component {
                   required: true, message: `请根据实际情况选择`,
                 }],
                 initialValue: reviewState.sfcj,
-                onChange: (e)=>{ this.setState({checked: e.target.value})}
               })(
-                  <RadioGroup disabled={reviewState.reviewState !== 0}>
+                  <RadioGroup disabled={reviewState.reviewState !== 0} onChange={(e)=>{ this.setState({checked: e.target.value})}}>
                     <Radio value={1}>是</Radio>
                     <Radio value={0}>否</Radio>
                   </RadioGroup>

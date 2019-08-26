@@ -62,6 +62,7 @@ class PageController extends Controller {
       record.files = JSON.parse(record.files);
       record.extra = JSON.parse(record.extra);
     });
+
     application.reviews = reviews;
     application.attachments = attachments;
     application.items = items;
@@ -69,7 +70,7 @@ class PageController extends Controller {
     application.renzhis = renzhis;
     application.papers = papers;
 
-    application.bysj = helper.moment(application.bysj, 'YYYY-MM-DD').format('YYYY年 MM月 DD日')
+    application.bysj = application.bysj && helper.moment(application.bysj, 'YYYY-MM-DD').format('YYYY年 MM月 DD日') ||''
     application.reviews.forEach(it => {
       it.reviewTime = helper.moment(it.reviewTime).format('YYYY年 MM月 DD日')
     })
@@ -94,7 +95,7 @@ class PageController extends Controller {
     application.total_score = score
 
     application.DECIDERS_MAP = DECIDERS_MAP;
-    application.DECIDERS_ORDER = DECIDERS_ORDER;
+    application.DECIDERS_ORDER = DECIDERS_ORDER[application.level];
     application._ = helper._;
 
     await ctx.render2(`${details[application.level]}.ejs`, application);

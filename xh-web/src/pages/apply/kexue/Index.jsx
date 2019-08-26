@@ -69,10 +69,17 @@ class Widget extends React.Component {
   updateDetail = (values, nextFlag) => {
     const { apply = {}, dispatch, location = {} } = this.props;
     const { id = '' } = queryStringToJson(location.search || '');
+    const { detail = {} } = apply;
+
+    var section = (detail.section || '')
+    if (!section.match(/kexue;/)){
+      section += 'kexue;'
+    }
     dispatch({
       type: 'apply/updateDetail',
       payload: {
         id: parseInt(id),
+        section: section,
         ...values,
       },
     }).then((data) => {
@@ -115,13 +122,13 @@ class Widget extends React.Component {
                 {...formItemLayout}
                 label="学习内容详情及先进性介绍"
             >
-              {getFieldDecorator('khzb', {
+              {getFieldDecorator('xxlr', {
                 rules: [
                   { required: true, message: '内容不能为空' },
                   { min: 20, message: '内容不能小于20字' },
                   { max: 500, message: '内容不能大于500字' },
                 ],
-                initialValue: detail.khzb,
+                initialValue: detail.xxlr,
               })(
                   <TextArea rows={25} placeholder="高水平科学研究学习内容详情及先进性介绍（限500字）" />
               )}
@@ -130,13 +137,13 @@ class Widget extends React.Component {
                 {...formItemLayout}
                 label="预期成果及量化考核指标"
             >
-              {getFieldDecorator('xxgh', {
+              {getFieldDecorator('khzb', {
                 rules: [
                   { required: true, message: '内容不能为空' },
                   { min: 20, message: '内容不能小于20字' },
                   { max: 500, message: '内容不能大于500字' },
                 ],
-                initialValue: detail.xxgh,
+                initialValue: detail.khzb,
               })(
                   <TextArea rows={25} placeholder="预期成果及量化考核指标（限500字）" />
               )}

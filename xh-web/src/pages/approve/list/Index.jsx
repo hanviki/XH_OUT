@@ -5,6 +5,7 @@ import First from './com/first/Index';
 import Second from './com/second/Index';
 
 import './style.less';
+import {queryStringToJson} from "../../../utils/utils";
 
 class Widget extends React.Component {
   constructor(props) {

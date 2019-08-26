@@ -70,10 +70,17 @@ class Widget extends React.Component {
   updateDetail = (values, nextFlag) => {
     const { apply = {}, dispatch, location = {} } = this.props;
     const { id = '' } = queryStringToJson(location.search || '');
+    const { detail = {} } = apply;
+
+    var section = (detail.section || '')
+    if (!section.match(/huiyi;/)){
+      section += 'huiyi;'
+    }
     dispatch({
       type: 'apply/updateDetail',
       payload: {
         id: parseInt(id),
+        section: section,
         ...values,
       },
     }).then((data) => {

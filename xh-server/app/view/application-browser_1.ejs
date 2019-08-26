@@ -19,7 +19,7 @@
 <body>
   <div class="wgt-container index-pages">
     <div class="f-foursize">
-      <span class="number">编号_______</span>
+      <span class="number">编号____________</span>
     </div>
     <div class="f-firstsize f-black f-tac title">
      优秀专业学术人才出国奖励计划
@@ -93,42 +93,51 @@
   <!-- 第三页 -->
   <div class="wgt-container explanation-common-pages explanation-1-pages">
     <table>
-	<tr><td colspan='8' style='font-weight: 700;'>一、基本情况</td></tr>
-	<tr><td style="width:10%;">姓名</td><td style="width:15%;"><%= data.applicantName %></td><td style="width:10%;">性别</td><td style="width:10%;"><%= data.applicantGender?'男':'女' %></td><td style="width:10%;">联系电话</td><td style="width:20%;"><%= data.applicantMobile %></td><td style="width:10%;">出生日期</td><td style="width:15%;"><%= data.applicantBirthday %></td></tr>
-	<tr><td>最后学历</td><td colspan='5'><%= data.bysj %> 毕业于 <%= data.school %></td><td>学位</td><td><%= data.education %></td></tr>
+	<tr><td colspan='8' style='font-weight: 700;text-align: left'>一、基本情况</td></tr>
+	<tr><td>姓名</td><td style="width:15%;"><%= data.applicantName %></td><td style="width:10%;">性别</td><td style="width:10%;"><%= data.applicantGender?'男':'女' %></td><td style="width:10%;">联系电话</td><td style="width:20%;"><%= data.applicantMobile %></td><td style="width:10%;">出生日期</td><td style="width:15%;"><%= data.applicantBirthday %></td></tr>
+	<tr><td>最后学历</td><td colspan='5'><%= data.bysj || '' %> 毕业于 <%= data.school %></td><td>学位</td><td><%= data.education %></td></tr>
 	<tr><td>现任职科室</td><td colspan='2'><%= data.deptName %></td><td colspan='2'>是否单独带组</td><td><%= data.dddz==0?'否':'是' %></td><td>开始带组时间</td><td><%= data.dzsj.substring(0,10) %></td></tr>
-	<tr><td>现任专业技术职务</td><td colspan='2'><%= data.zyzw %></td><td colspan='2'>现任行政职务</td><td colspan="3"><%= data.school %></td></tr>
-	<tr><td>从事专业关键词</td><td colspan="7"><%= data.zygjc %></td></tr>
+	<tr><td>现任专业技术职务</td><td colspan='2'><%= data.zyzw %></td><td colspan='2'>现任行政职务</td><td colspan="3"><%= data.xzzw %></td></tr>
+	<tr><td style="height: 80px">从事专业关键词</td><td colspan="7"><%= data.zygjc %></td></tr>
 	<tr><td>近5年医疗考核情况</td><td colspan="7"><%= data.ylkh %></td></tr>
-	<tr><td>申请留学时间</td><td colspan="7"><%= data.lxkssj && data.lxkssj.substr(0, 10) || '' %> 至 <%= data.lxjssj && data.lxjssj.substr(0, 10) || '' %></td></tr>
-	<tr><td style="height:245px;">个人简历</td><td colspan="7"><%= data.grjj %></td></tr>
-	<tr><td style="height:197px;">主要成就简介（限200字以内)</td><td colspan="7"><%= data.zycj %></td></tr>
+        <%
+        if (data.lxkssj && data.lxjssj){
+            var from_date = new Date(data.lxkssj);
+            var end_date = new Date(data.lxjssj);
+
+            var time_different = ((end_date - from_date) / (86400000*30)).toFixed(0);
+        }
+
+        %>
+	<tr><td>申请留学时间</td><td colspan="7">自 <u style="white-space: pre"> <%= data.lxkssj && data.lxkssj.substr(0, 10) || '' %> </u> 至 <u style="white-space: pre"> <%= data.lxjssj && data.lxjssj.substr(0, 10) || '' %></u>，共<u style="white-space: pre">  <%= time_different || ''%>  </u>月</td></tr>
+	<tr><td style="height:245px">个人简历</td><td colspan="7"><%= data.grjj %></td></tr>
+	<tr><td style="height:197px">主要成就简介（限200字以内)</td><td colspan="7"><%= data.zycj %></td></tr>
 	</table>
     <p class="f-page-number">3</p>
   </div>
    <!-- 第四页 -->
   <div class="wgt-container explanation-common-pages explanation-2-pages">
-    <table>
-	<tr><td colspan='4' style='font-weight: 700;'>二、留学项目介绍</td></tr>
-	<tr><td style="width:15%">留学专业</td><td><%= data.lxzy %></td></tr>
-	<tr><td style="width:15%">新技术新业</br>务名称</td><td><%= data.ywmc %></td></tr>
-	<tr><td style="height:294px;" colspan='2'>学习内容介绍（限500字）<br> <p><%= data.xxlr %></p></td></tr>
-	<tr><td  style="height:294px;" colspan='2'>学习内容的先进性、可行性，学习规划<br> <p><%= data.xxgh %></p></td></tr>
+    <table >
+	<tr><td colspan="2" style='font-weight: 700;text-align: left'>二、留学项目介绍</td></tr>
+	<tr><td style="width: 15%;"> 留学专业</td><td style="width: 85%;"><%= data.lxzy %></td></tr>
+	<tr><td >新技术新业</br>务名称</td><td ><%= data.ywmc %></td></tr>
+	<tr><td style="height:294px;text-align: left; vertical-align: top" colspan="2">学习内容介绍（限500字）<br> <p><br><%= data.xxlr %></p></td></tr>
+	<tr><td  style="height:294px;text-align: left; vertical-align: top" colspan="2">学习内容的先进性、可行性，学习规划<br> <p><br><%= data.xxgh %></p></td></tr>
 	</table>
     <p class="f-page-number">4</p>
   </div>
      <!-- 第5页 -->
   <div class="wgt-container explanation-common-pages explanation-3-pages">
     <table>
-	<tr><td colspan='6' style='font-weight: 700;'>三、留学单位及导师</td></tr>
-	<tr><td colspan='6'>学校及专业</td></tr>
+	<tr><td colspan='6' style='font-weight: 700;text-align: left'>三、留学单位及导师</td></tr>
+	<tr><td colspan='6' style="text-align: left">学校及专业</td></tr>
 	<tr><td colspan='2'>留学国别与学校务名称</td><td>学校世界排名</td><td>留学专业</td><td colspan="2">专业世界排名</td></tr>
-	<tr><td colspan='2'><%= data.lxgj %> <%= data.lxxx %></td><td><%= data.xxpm %></td><td><%= data.lxzy %></td><td colspan="2"><%= data.zypm %></td></tr>
-	<tr><td colspan='6'>导师概况</td></tr>
-	<tr><td style="width:8%">导师姓名</td><td style="width:25%"><%= data.dsxm %></td><td style="width:15%">学术影响及学术任职</td><td style="width:15%"><%= data.xsrz %></td><td style="width:10%">行政职务</td><td style="width:20%"><%= data.dsxzzw %></td></tr>
-		<tr><td colspan='6'>是否有该导师正式邀请信：<%= data.dsyq?'是':'否' %></td></tr>
-	<tr><td style="height:245px;">导</br>师</br>简</br>介</td><td colspan="5"><%= data.dsjj %></td></tr>
-	<tr><td style="height:245px;">导师</br>提供</br>留学</br>条件</br>介绍</td><td colspan="5"><%= data.tjjs %></td></tr>
+	<tr><td colspan='2' style="height: 80px"><%= data.lxgj %> <%= data.lxxx %></td><td><%= data.xxpm %></td><td><%= data.lxzy %></td><td colspan="2"><%= data.zypm %></td></tr>
+	<tr><td colspan='6' style="text-align: left">导师概况</td></tr>
+	<tr><td style="width:8%; height: 80px">导师姓名</td><td style="width:25%"><%= data.dsxm %></td><td style="width:15%">学术影响及学术任职</td><td style="width:15%"><%= data.xsrz %></td><td style="width:10%">行政职务</td><td style="width:20%"><%= data.dsxzzw %></td></tr>
+		<tr><td colspan='6' style="text-align: left">是否有该导师正式邀请信：<%= data.dsyq?'是':'否' %></td></tr>
+	<tr><td style="height:245px;">导</br>师</br>简</br>介</td><td colspan="5" style="text-align: left; vertical-align: top"><%= data.dsjj %></td></tr>
+	<tr><td style="height:245px;">导师</br>提供</br>留学</br>条件</br>介绍</td><td colspan="5" style="text-align: left; vertical-align: top"><%= data.tjjs %></td></tr>
 	</table>
     <p class="f-page-number">5</p>
   </div>
@@ -180,17 +189,26 @@
           </div>
         </div>
         <div class="f-foursize sign-item" style="padding: 0 10px">
-          <p class="pass-txt">
-          1.所学内容是否具有先进性和可行性：是<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].sfxj?'■':'□' %>    否<%= data.reviews[1] && !data.reviews[1].sfxj?'■':'□' %>  </br>
-          2.是否推荐出国学习：     推荐<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].sftj?'■':'□' %>       不推荐<%= data.reviews[1] && !data.reviews[1].sftj?'■':'□' %>    </br>
-          3.其他审核意见：<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].reviewAdvice || '' %>
-          </p>
+            <div style="line-height: 2;padding-left: 10px">
+                    1.所学内容是否具有先进性和可行性：是<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].sfxj?'■':'□' %>    否<%= data.reviews[1] && !data.reviews[1].sfxj?'■':'□' %>
+            </div>
+            <div style="line-height: 2;padding-left: 10px">
+                    2.是否推荐出国学习：     推荐<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].sftj?'■':'□' %>       不推荐<%= data.reviews[1] && !data.reviews[1].sftj?'■':'□' %>
+            </div >
+            <div style="display: flex; line-height: 2;padding-left: 10px">
+                <p>
+                    3.其他审核意见：
+                </p>
+                <div style="border-bottom: 1px #000 solid;min-width: 300px">
+                    <%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].reviewAdvice || '' %>
+                </div>
+            </div>
           <div class="pass-remark" style="margin-top: 40px">
             <p>负责人签字：<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].reviewerName || ''%></p>
               <p>日期：<%= data.reviews[1] && data.reviews[1].reviewState !=0 && data.reviews[1].reviewTime   || '' %></p>
           </div>
         </div>
-     
+
 
     </div>
     <p class="f-page-number">7</p>
@@ -240,11 +258,11 @@
       </div>
       <p class="f-page-number">8</p>
   </div>
-  
+
   <!-- 第七页 -->
   <div class="wgt-container explanation-common-pages explanation-6-pages">
     <div class="no-border-cell">
-       
+
       <div class="f-foursize explanation-fill-cell">
         <div class="item">
           <div class="title value">七、人才工作领导小组办公室审核意见</div>
@@ -253,14 +271,14 @@
       <div class="f-foursize sign-item">
         <p class="pass-txt"><%= data.groupAdvice%></p>
           <div class="pass-remark" style="margin-top: 40px">
-              <p>办公室主任：<%= data.groupName%></p>
+              <p>办公室主任签字：<%= data.groupName%></p>
               <%
               if (data.updatedAt && data.groupName) {
                   var formatData = new Date(data.updatedAt);
               %>
-              <p>日期：<%= formatData.getFullYear()%><span class="split">年</span><%= formatData.getMonth()+1%><span class="split">月</span><%= formatData.getDate()%><span class="split">日</span></p>
+              <p>时间：<%= formatData.getFullYear()%><span class="split">年  </span><%= formatData.getMonth()+1%><span class="split">月  </span><%= formatData.getDate()%><span class="split">日</span></p>
               <%} else { %>
-                  <p>日期：</p>
+                  <p>时间：</p>
               <%}%>
           </div>
       </div>
@@ -270,8 +288,8 @@
         </div>
       </div>
       <div class="f-foursize sign-item">
-        <p class="pass-txt" style="margin-top: 30px;text-indent: 2em">批准留学时间：自    年   月   日至    年   月   日，共   月
-资助金额：     万元</p>
+          <p class="pass-txt" style="margin-top: 30px;text-indent: 2em">批准留学时间：自<u style="white-space: pre">       </u>年<u style="white-space: pre">    </u>月<u style="white-space: pre">    </u>日至<u style="white-space: pre">      </u>年<u style="white-space: pre">    </u>月<u style="white-space: pre">    </u>日，共<u style="white-space: pre">    </u>月<br>
+<span style="white-space: pre">        资助金额：<u style="white-space: pre">       </u>万元</span></p>
         <div class="pass-remark">
           <p>院长签字：</p>
           <p>时间：</p>
@@ -333,7 +351,7 @@
 </br>
 </br>
 </br>
-综合得分：_____<%= data.total_score %>______分；</br>
+              综合得分：<u style="white-space: pre">    <%= data.total_score %>    </u>分；</br>
 
           </p>
 
@@ -388,7 +406,7 @@
 </br>
 </br>
 </br>
-综合得分：<%= data.total_score%>分；
+综合得分：<u style="white-space: pre">    <%= data.total_score %>    </u>分；</br>
           </p>
 
         </div>
@@ -399,51 +417,80 @@
   </div>
 
     <!-- 第12页 -->
-  <div class="wgt-container explanation-common-pages explanation-6-pages">
+  <div class="wgt-container explanation-common-pages explanation-6-pages store">
   <table>
   <tr><td colspan='7'>（一）主持的科研项目</td></tr>
   <tr><td style="width:20%;text-align:center;">项目名称</td><td style="width:20%;text-align:center;">项目性质</br>及来源</td><td  style="width:10%;text-align:center;">项目经费</br>（万元）</td><td style="width:10%;text-align:center;">起始</br>年度</td><td style="width:10%;text-align:center;">终止年度</td><td style="width:10%;text-align:center;" >排名</td><td style="width:10%;text-align:center;">评分</td></tr>
    <%
    var score = 0
-        for (var i in data.items){
+        for (var i in data.items.slice(0, 8)){
           var item = data.items[i]
        score += item.score
   %>
       <tr><td style="text-align: center"><%= item.name %></td><td style="text-align: center"><%= item.source %></td><td  style="text-align: center"><%= item.fee %></td><td style="text-align: center"><%= item.start.substr(0,4) %></td><td style="text-align: center"><%= item.end.substr(0,4) %></td><td style="text-align: center" ><%= item.rank %></td><td style="text-align: center"><%= item.score %></td></tr>
       <% }%>
 
-	<tr><td style="text-align:center;" colspan='7'>主持科研项目评分合计：<%= score %> </td></tr>
+      <%
+      if (data.items.length < 8){
+      for (var i = 8; i > data.items.length; i--){
+      %>
+          <tr><td style="text-align: center"></td><td style="text-align: center"></td><td  style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center" ></td><td style="text-align: center"></td></tr>
+      <%
+      }
+      }
+      %>
+
+      <tr><td style="text-align:center;" colspan='7'>主持科研项目评分合计：<u style="white-space: pre">    <%= score %>    </u> </td></tr>
   </table>
   <p class="f-page-number">12</p>
   </div>
 
     <!-- 第13页 -->
-  <div class="wgt-container explanation-common-pages explanation-6-pages">
+  <div class="wgt-container explanation-common-pages explanation-6-pages store">
   <table>
   <tr><td colspan='7'>（二）获得的科研奖励</td></tr>
   <tr><td style="width:40%;text-align:center;">获奖项目名称</td><td style="width:10%;text-align:center;">奖励名称</td><td  style="width:10%;text-align:center;">授奖单</br>位及</br>国别</td><td style="width:10%;text-align:center;">奖励</br>等级</td><td style="width:10%;text-align:center;">奖励</br>年度</td><td style="width:10%;text-align:center;" >排序</td><td style="width:10%;text-align:center;">评分</td></tr>
 
       <%
       var score = 0
-              for (var i in data.awards){
+              for (var i in data.awards.slice(0, 4)){
           var item = data.awards[i]
           score += item.score
       %>
       <tr><td ><%= item.name %></td><td ><%= item.award %></td><td  ><%= item.orgnazation %></td><td ><%= item.level %></td><td ><%= item.year?item.year.substr(0, 4):'' %></td><td  ><%= item.rank %></td><td ><%= item.score %></td></tr>
       <%}%>
 
-   <tr><td  style="text-align:center;" colspan="7">科研奖励评分合计：<%= score%></td></tr>
+      <%
+      if (data.awards.length < 3){
+      for (var i = 4; i > data.awards.length; i--){
+      %>
+          <tr><td ></td><td ></td><td  ></td><td ></td><td ></td><td  ></td><td ></td></tr>
+      <%
+      }
+      }
+      %>
+
+   <tr><td  style="text-align:center;" colspan="7">科研奖励评分合计：<u style="white-space: pre">    <%= score%>    </u></td></tr>
    <tr><td colspan='7'>（三）学会任职</td></tr>
   <tr><td colspan="4" style="text-align:center;">学会名称</td><td style="text-align:center;" colspan="2">任职</td><td style="text-align:center;">评分</td></tr>
       <%
       var score = 0
-              for (var i in data.awards){
-          var item = data.awards[i]
+              for (var i in data.renzhis.slice(0, 3)){
+          var item = data.renzhis[i]
           score += item.score
       %>
       <tr><td colspan="4"><%= item.name %></td><td colspan="2"><%= item.renzhi %></td><td ><%= item.score %></td></tr>
       <% }%>
-	<tr><td style="text-align:center;" colspan='7'> 学会任职评分合计：<%= score %></td></tr>
+      <%
+      if (data.renzhis.length < 3){
+          for (var i = 3; i > data.renzhis.length; i--){
+ %>
+          <tr><td colspan="4"></td><td colspan="2"></td><td></td></tr>
+      <%
+      }
+      }
+ %>
+	<tr><td style="text-align:center;" colspan='7'> 学会任职评分合计：<u style="white-space: pre">    <%= score %>    </u></td></tr>
   </table>
   <p class="f-page-number">13</p>
   </div>
@@ -461,26 +508,27 @@
 <tr><td style="width:4%;text-align:center;" >SCI</td><td style="width:4%;text-align:center;" >SSCI</td><td style="width:4%;text-align:center;">CSSI</td></tr>
       <%
       var score = 0
-              for (var i in data.papers){
+              for (var i in data.papers.slice(0, 11)){
           var item = data.papers[i]
           score += item.score
       %>
-      <tr><td ><%= item.name %></td><td ><%= item.publish?item.publish.substr(0, 10):'' %></td><td  ><%= item.include %></td><td ><%= item.factor %></td><td ><%= item.sci %></td><td  ><%= item.ssci %></td><td ><%= item.cssi %></td></tr>
+      <tr><td style="height: 55.5px"><%= item.name %></td><td ><%= item.publish?item.publish.substr(0, 10):'' %></td><td  ><%= item.include %></td><td ><%= item.factor %></td><td ><%= item.sci %></td><td  ><%= item.ssci %></td><td ><%= item.cssi %></td></tr>
       <%}%>
 
-   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
-   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
-   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
-   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
-   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
-   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
-   <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
- <tr><td ></td><td ></td><td  ></td><td ></br></td><td ></td><td  ></td><td ></td></tr>
+      <%
+      if (data.papers.length < 11){
+      for (var i = 11; i > data.papers.length; i--){
+      %>
+          <tr><td style="height: 55.5px"></td><td ></td><td  ></td><td ></td><td ></td><td  ></td><td ></td></tr>
+      <%
+      }
+      }
+      %>
 
   </table>
   </div>
   <table>
-  <tr><td>文章评分合计：____________</td></tr></table>
+  <tr><td>文章评分合计：<u style="white-space: pre">    <%= score %>    </u></td></tr></table>
   <p class="f-page-number">14</p>
   </div>
   <!-- 第15页 -->
@@ -570,7 +618,7 @@
           Object.keys(cataData).forEach(function(value, index) {
             var itemData = cataData[value];  // value 代表类型
 
-            var catalogTxt = value == 'idcard' ? '身份证' : value == 'acd' ? '学位学历证书': value == 'personnel' ? '重要人才项目批件' : value == 'learn' ? '重要学会认证证书' : value == 'article' ? '代表性文章复印件及检索证明' : value == 'others' ? '其他附件' : '重要科研项目批件';
+            var catalogTxt = value == 'jianli' ? '个人简历':value == 'idcard' ? '身份证' : value == 'acd' ? '学位学历证书': value == 'lunwen' ? '论文全文和检索报告' : value == 'keti' ? '课题批件（科研部门盖章）' : value == 'zhuanli' ? '专利证书' : value == 'daoshi' ? '导师中文简历' :  value == 'xuexiao' ? '学校中文简介':  value == 'yaoqing' ? '邀请函':  value == 'huojiang' ? '获奖材料':  value == 'waiyu' ? '外语水平证明材料':'学会任职材料';
             %>
               <div class="f-fivesize dir-item">
               <p class="f-fivesize dir-title"><%= index+1%>. <%=  catalogTxt%></p>

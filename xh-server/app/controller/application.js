@@ -7,6 +7,29 @@ const path = require('path');
 const puppeteer = require('puppeteer');
 const pdfmerger = require('pdfmerger');
 const fs = require('fs');
+const rules = {
+  //'basic;intro;daoshi;condition;appendix;'
+  1: {
+      basic: '基本情况未填写完整',
+      intro: '留学项目介绍未填写完整',
+      daoshi: '留学单位及导师未填写完整',
+      condition: '申请人评分未填写完整',
+      appendix: '附件材料未上传完整',
+    },
+  2: {
+    basic: '基本情况未填写完整',
+    daoshi: '留学单位及导师未填写完整',
+    kexue: '科学研究项目介绍未填写完整',
+    condition: '申请人评分未填写完整',
+    appendix: '附件材料未上传完整',
+  },
+  3: {
+    basic: '基本情况未填写完整',
+    huiyi: '会议情况未填写完整',
+    canhui: '参会情况未填写完整',
+    appendix: '附件材料未上传完整',
+  },
+}
 
 class ApplicationController extends Controller {
   async create() {
@@ -139,6 +162,14 @@ class ApplicationController extends Controller {
 
     if (application.state !== APPLICATION_STATE.UNSUBMIT && application.state !== APPLICATION_STATE.RE_SUBMIT) {
       throw new app.errors.InvalidParam('该申请已经提交, 正在审核');
+    }
+
+    var sections = (application.section || '').split(';')
+    var rule = rules[application.level];
+    for (let key in rule) {
+      if (!sections.includes(key)){
+        throw new app.errors.InvalidParam(rule[key]);
+      }
     }
 
     // 扩展rule
@@ -309,7 +340,7 @@ class ApplicationController extends Controller {
 
   async pass() {
     const { ctx } = this;
-    const { app, service, helper } = ctx;
+    const { app, service, helper, logger } = ctx;
 
     const errors = app.validator.validate({
       id: { type: 'int' },
@@ -326,8 +357,10 @@ class ApplicationController extends Controller {
       throw new app.errors.InvalidParam('该申请不存在');
     }
 
+    const application = await service.application.findOne({id});
+
     const [ reviewers, reviews ] = await Promise.all([
-      service.user.findReviewers(),
+      service.user.findReviewers(application),
       service.review.find({
         applicationId: id,
         reviewState: REVIEW_STATE.PASSED,
@@ -335,8 +368,11 @@ class ApplicationController extends Controller {
       }),
     ]);
 
+    logger.info("reviewers", helper._.map(reviewers || [], 'id').sort())
+    logger.info("reviews", helper._.map(reviews || [], 'reviewerId').sort())
+
     try {
-      assert.deepEqual(helper._.map(reviewers || [], 'id'), helper._.map(reviews || [], 'reviewerId'));
+      assert.deepEqual(helper._.map(reviewers || [], 'id').sort(), helper._.map(reviews || [], 'reviewerId').sort());
     } catch (error) {
       throw new app.errors.Unauthorized('所有审核人员尚未审核通过');
     }
@@ -423,10 +459,10 @@ class ApplicationController extends Controller {
       throw new app.errors.InvalidParam(`${errors[0].field} ${errors[0].message}`);
     }
 
-    const { id, attachments } = ctx.request.body;
+    const { id, attachments, section } = ctx.request.body;
 
     if (!await service.application.exitsById(id)) {
-      throw new app.errors.InvalidParam('该审核不存在');
+      throw new app.errors.InvalidParam('该申请不存在');
     }
 
     const records = [];
@@ -442,6 +478,8 @@ class ApplicationController extends Controller {
 
     // await service.attachment.add(records);
     await service.attachment.addAndRemoveBefore(id, records);
+
+    await service.application.updateOne({id}, {section: section});
 
     ctx.success();
   }
@@ -488,6 +526,8 @@ class ApplicationController extends Controller {
       throw new app.errors.InvalidParam('该申请不存在');
     }
 
+    logger.info("aaaaaaaaaaaaaa:", config.pageVisitToken)
+
     const mainFilePath = path.resolve(app.baseDir, `./files/${id}.pdf`);
 
     const option = {};
@@ -526,13 +566,18 @@ class ApplicationController extends Controller {
 
     const attachmentPDFs = [ mainFilePath ]
       .concat(
+        attachmentTypeMap.jianli || [],
         attachmentTypeMap.idcard || [],
         attachmentTypeMap.acd || [],
-        attachmentTypeMap.personnel || [],
-        attachmentTypeMap.scientific || [],
-        attachmentTypeMap.learn || [],
-        attachmentTypeMap.article || [],
-        attachmentTypeMap.others || []
+        attachmentTypeMap.lunwen || [],
+        attachmentTypeMap.keti || [],
+        attachmentTypeMap.zhuanli || [],
+        attachmentTypeMap.daoshi || [],
+        attachmentTypeMap.xuexiao || [],
+        attachmentTypeMap.yaoqing  || [],
+        attachmentTypeMap.huojiang || [],
+        attachmentTypeMap.waiyu || [],
+        attachmentTypeMap.xuehui || [],
       );
 
     let pdfStream;

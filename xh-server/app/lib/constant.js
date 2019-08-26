@@ -111,15 +111,15 @@ module.exports.APPLICATION_SUBMIT_VALIDATE_ERROR_MAP = {
   other5YeasAimsLevel3: '第三层次其它入选满5年目标填写有误',
 };
 
-module.exports.DECIDERS_MAP = {
+module.exports.DECIDERS_MAP = {//hsc 这里需要配置对应用户的ID
   '研究生管理办公室': 3,
   '宣传部': 5,
   '纪委办公室': 6,
   '第一临床学院': 7,
   '党委办公室': 9,
   '政治审查': 2758,
-  '科研处': 8001,
-  '组织部': 2758,
+    '科研处': 35512,
+    '组织部': 35511,
 };
 
 module.exports.DECIDERS_ORDER = {
